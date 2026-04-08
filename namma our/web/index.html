@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Namma Oour Prototype - Advanced</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="device-frame">
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+      <div class="login-container">
+        <div class="logo-circle" style="background:transparent; box-shadow:none;">
+          <img src="logo.png" alt="Logo" onerror="this.onerror=null; this.outerHTML='<i class=\'fa-solid fa-users\' style=\'color:white; background:var(--primary); padding:20px; border-radius:50%;\'></i>';" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:4px solid var(--primary); box-shadow:0 10px 25px -5px rgba(25, 85, 209, 0.4);">
+        </div>
+        <h1>Namma <span class="accent-text">Oour</span></h1>
+        
+        <div class="input-group">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" placeholder="Email ID" id="login-email">
+        </div>
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" placeholder="Password" id="login-password">
+        </div>
+        
+        <button class="primary-btn" onclick="doLogin()">Login</button>
+        <p class="link-text" onclick="showScreen('signup-screen')">Don't have an account? Sign Up</p>
+      </div>
+    </div>
+
+    <!-- Sign Up Screen -->
+    <div id="signup-screen" class="screen">
+      <div class="signup-container">
+        <div class="logo-circle" style="width:70px; height:70px; font-size:30px; background:transparent; box-shadow:none;">
+          <img src="logo.png" alt="Logo" onerror="this.onerror=null; this.outerHTML='<i class=\'fa-solid fa-users\' style=\'color:white; background:var(--primary); padding:15px; border-radius:50%;\'></i>';" style="width:70px; height:70px; border-radius:50%; object-fit:cover; border:3px solid var(--primary);">
+        </div>
+        <h2 class="title" style="margin-bottom:20px;">Join Namma Oour</h2>
+        
+        <div class="input-group">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" placeholder="Full Name" id="signup-name">
+        </div>
+        <div class="input-group">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" placeholder="Email ID">
+        </div>
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" placeholder="Password">
+        </div>
+        
+        <button class="primary-btn accent-bg" onclick="doSignup()">Sign Up</button>
+        <p class="link-text" onclick="showScreen('login-screen')">Back to Login</p>
+      </div>
+    </div>
+
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen with-nav">
+      <div class="app-bar">
+        <h2 class="title-logo">Namma <span class="accent-text">Oour</span></h2>
+        <div class="app-actions">
+          <i class="fa-solid fa-magnifying-glass" onclick="toggleSearch()" title="Search"></i>
+          <i class="fa-solid fa-circle-user fa-lg" onclick="showScreen('profile-screen')" title="Profile"></i>
+        </div>
+      </div>
+
+      <div id="search-bar-container" class="search-bar-container" style="display:none; position:relative;">
+          <input type="text" id="global-search-input" oninput="handleSearch()" placeholder="Find friends, posts, videos..." class="search-input">
+          <div id="search-results-list" class="search-results-container" style="display:none;"></div>
+      </div>
+
+      <div class="feed-container" id="feed-container">
+        <!-- Post 1: General News -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="avatar blue-bg" onclick="openOtherProfile('Dinakaran Daily', 'D', 'blue-bg')">D</div>
+            <div class="post-info" onclick="openOtherProfile('Dinakaran Daily', 'D', 'blue-bg')">
+              <h4>Dinakaran Daily</h4>
+              <span>2h ago • Breaking News</span>
+            </div>
+          </div>
+          <p class="post-content">Tamil Nadu updates: Heavy rains expected in coastal districts tomorrow. Stay safe!</p>
+          <img src="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?auto=format&fit=crop&q=80&w=400&h=200" style="width:100%; height:180px; object-fit:cover; border-radius:12px; margin-bottom:15px;" alt="News Image">
+          <div class="post-actions">
+            <button onclick="toggleLike(this)"><i class="fa-regular fa-thumbs-up"></i> <span class="like-text">Like</span></button>
+            <button onclick="openCommentModal()"><i class="fa-regular fa-comment"></i> Comment</button>
+          </div>
+        </div>
+
+        <!-- Post 2: Sports News -->
+        <div class="post-card">
+          <div class="post-header">
+            <div class="avatar green-bg" onclick="openOtherProfile('Sports Now', 'S', 'green-bg')">S</div>
+            <div class="post-info" onclick="openOtherProfile('Sports Now', 'S', 'green-bg')">
+              <h4>Sports Now</h4>
+              <span>5h ago • Sports News</span>
+            </div>
+          </div>
+          <p class="post-content">Thrilling match tonight! India secures a massive win in the T20 final match. 🏏🔥</p>
+          <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&q=80&w=400&h=200" style="width:100%; height:180px; object-fit:cover; border-radius:12px; margin-bottom:15px;" alt="Sports Arena">
+          <div class="post-actions">
+            <button onclick="toggleLike(this)"><i class="fa-regular fa-thumbs-up"></i> <span class="like-text">Like</span></button>
+            <button onclick="openCommentModal()"><i class="fa-regular fa-comment"></i> Comment</button>
+          </div>
+        </div>
+
+        <!-- Suggestion -->
+        <div class="post-card suggestion-card">
+          <div class="suggestion-info">
+            <div class="avatar orange-bg" onclick="openOtherProfile('Suresh Velan', 'S', 'orange-bg')">S</div>
+            <div onclick="openOtherProfile('Suresh Velan', 'S', 'orange-bg')">
+              <h4>Suresh Velan</h4>
+              <span>5 mutual friends</span>
+            </div>
+          </div>
+          <button class="link-btn" onclick="doLink(this, false)">Link <i class="fa-solid fa-link"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages Screen -->
+    <div id="messages-screen" class="screen with-nav">
+      <div class="app-bar border-bottom">
+        <h2>Messages</h2>
+        <i class="fa-solid fa-pen-to-square fa-lg" style="color:var(--primary)"></i>
+      </div>
+      <div class="feed-container" style="padding: 0;">
+         <div class="chat-list-item pinned" onclick="openChat('Logesh', 'L', 'blue-bg')" oncontextmenu="openChatUserActions(event, 'Logesh', this);">
+            <div class="avatar blue-bg" style="position:relative;" onclick="event.stopPropagation(); openOtherProfile('Logesh', 'L', 'blue-bg')">L</div>
+            <div class="chat-info">
+               <h4>Logesh <i class="fa-solid fa-thumbtack pin-icon" style="color:#64748b; font-size:12px; margin-left:5px; transform:rotate(45deg);"></i></h4>
+               <p>Thanks bro, see you there!</p>
+            </div>
+            <span class="chat-time">2h</span>
+         </div>
+         <div class="chat-list-item" onclick="openChat('Mani', 'M', 'green-bg')" oncontextmenu="openChatUserActions(event, 'Mani', this);">
+            <div class="avatar green-bg" onclick="event.stopPropagation(); openOtherProfile('Mani', 'M', 'green-bg')">M</div>
+            <div class="chat-info">
+               <h4>Mani</h4>
+               <p>Sent a video.</p>
+            </div>
+            <span class="chat-time">5h</span>
+         </div>
+         <div class="chat-list-item" onclick="openChat('Lokhi', 'L', 'orange-bg')" oncontextmenu="openChatUserActions(event, 'Lokhi', this);">
+            <div class="avatar orange-bg" onclick="event.stopPropagation(); openOtherProfile('Lokhi', 'L', 'orange-bg')">L</div>
+            <div class="chat-info">
+               <h4>Lokhi</h4>
+               <p>Hey checking out Namma Oour app.</p>
+            </div>
+            <span class="chat-time">1d</span>
+         </div>
+         <div class="chat-list-item" onclick="openChat('Surandhar', 'S', 'blue-bg')" oncontextmenu="openChatUserActions(event, 'Surandhar', this);">
+            <div class="avatar blue-bg" onclick="event.stopPropagation(); openOtherProfile('Surandhar', 'S', 'blue-bg')">S</div>
+            <div class="chat-info">
+               <h4>Surandhar</h4>
+               <p>Call me later</p>
+            </div>
+            <span class="chat-time">1d</span>
+         </div>
+         <div class="chat-list-item" onclick="openChat('Jhonson', 'J', 'green-bg')" oncontextmenu="openChatUserActions(event, 'Jhonson', this);">
+            <div class="avatar green-bg" onclick="event.stopPropagation(); openOtherProfile('Jhonson', 'J', 'green-bg')">J</div>
+            <div class="chat-info">
+               <h4>Jhonson</h4>
+               <p>Bro eppadi irukka?</p>
+            </div>
+            <span class="chat-time">2d</span>
+         </div>
+      </div>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chat-screen" class="screen">
+       <div class="app-bar border-bottom" style="padding: 45px 15px 15px;">
+           <div class="app-actions">
+              <i class="fa-solid fa-arrow-left fa-lg" onclick="showScreen('messages-screen')"></i>
+              <div class="chat-header-user" onclick="openOtherProfile(document.getElementById('chat-header-name').innerText, document.getElementById('chat-header-img').innerText, document.getElementById('chat-header-img').classList[1])">
+                  <div class="avatar" id="chat-header-img" style="width:36px; height:36px; font-size:16px;"></div>
+                  <h4 id="chat-header-name" style="margin-left:10px; color:black; font-size:18px;">User</h4>
+              </div>
+           </div>
+           <i class="fa-solid fa-phone fa-lg" style="color:var(--primary)"></i>
+       </div>
+       <div class="feed-container chat-bg" id="chat-history">
+           <div class="msg received" oncontextmenu="openMsgActions(event); return false;">Hey, Namma Oour app eppadi varudhu?</div>
+           <div class="msg sent" oncontextmenu="openMsgActions(event); return false;">Super aa poitu irukku bro! Features mass aa irukku. 🔥</div>
+       </div>
+       <div class="chat-input-area">
+           <i class="fa-solid fa-plus chat-icon"></i>
+           <input type="text" placeholder="Message..." class="chat-input-box">
+           <i class="fa-solid fa-microphone chat-icon"></i>
+       </div>
+    </div>
+
+    <!-- MAIN Profile Screen (My Profile) -->
+    <div id="profile-screen" class="screen with-nav">
+      <div class="app-bar" style="padding: 40px 15px 15px;">
+        <div class="app-actions">
+           <i class="fa-solid fa-arrow-left fa-lg" onclick="showScreen('home-screen')"></i>
+           <h3 id="profile-appbar-name" style="margin-left: 15px; display: inline; font-size: 20px;">User Name</h3>
+        </div>
+        <div class="app-actions">
+           <i class="fa-solid fa-magnifying-glass"></i>
+           <i class="fa-solid fa-ellipsis-vertical fa-lg" onclick="showScreen('settings-screen')" style="margin-left:15px;" title="Settings"></i>
+        </div>
+      </div>
+      <div class="feed-container" style="padding: 0; background-color: #f1f5f9;">
+        <div class="cover-photo"><i class="fa-solid fa-camera cover-cam"></i></div>
+        <div class="profile-info-section">
+            <div class="profile-pic-container">
+                <div class="profile-pic"></div>
+                <div class="profile-cam"><i class="fa-solid fa-camera"></i></div>
+                <div class="thought-bubble">Drop a thought...</div>
+            </div>
+            <h2 class="profile-name"><span id="profile-main-name">User Name</span></h2>
+            <p class="profile-stats">9 Linked People • 5 posts</p>
+            <p id="profile-bio" style="font-size:15px; margin-bottom:15px; color:#475569; display:none; line-height:1.4;"></p>
+            <div class="profile-action-btns">
+               <button class="add-story-btn" onclick="alert('Opening Story Camera... 📸')"><i class="fa-solid fa-plus"></i> Add to story</button>
+               <button class="edit-profile-btn" onclick="showScreen('edit-profile-screen')"><i class="fa-solid fa-pen"></i> Edit profile</button>
+            </div>
+        </div>
+
+        <div class="pymk-section">
+            <h4 style="margin-bottom:15px;">Your Posts</h4>
+            <!-- My Posts -->
+            <div class="post-card" style="margin-bottom:0; box-shadow:none; border:1px solid #e2e8f0;">
+              <div class="post-header">
+                <div class="avatar" style="background-image:url('https://picsum.photos/200/200?random=20'); background-size:cover;"></div>
+                <div class="post-info">
+                  <h4 id="my-post-name">User Name</h4>
+                  <span>Yesterday</span>
+                </div>
+              </div>
+              <p class="post-content">King Kohli! What a massive innings. Masterclass batting. 👑🔥💯</p>
+              <img src="https://images.unsplash.com/photo-1593341646782-e0b495cff86d?auto=format&fit=crop&q=80&w=400&h=300" 
+                   style="width:100%; height:250px; object-fit:cover; border-radius:12px; margin-bottom:15px; background:#1e293b;" alt="Virat Kohli Match Post">
+              <div class="post-actions">
+                <button onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up" style="color:var(--primary)"></i> <span class="like-text" style="color:var(--primary)">1.2K</span></button>
+                <button onclick="openCommentModal()"><i class="fa-regular fa-comment"></i> 450</button>
+              </div>
+            </div>
+        </div>
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- OTHER User Profile Screen -->
+    <div id="other-profile-screen" class="screen with-nav">
+      <div class="app-bar" style="padding: 40px 15px 15px;">
+        <div class="app-actions">
+           <i class="fa-solid fa-arrow-left fa-lg" onclick="showScreen('home-screen')"></i>
+           <h3 id="other-appbar-name" style="margin-left: 15px; display: inline; font-size: 20px;">Other User</h3>
+        </div>
+      </div>
+      <div class="feed-container" style="padding: 0; background-color: #f1f5f9;">
+        <div class="cover-photo" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('https://picsum.photos/400/200?random=18') center/cover;"></div>
+        <div class="profile-info-section">
+            <div class="profile-pic-container">
+                <div class="profile-pic" id="other-profile-pic" style="background:#cbd5e1; display:flex; justify-content:center; align-items:center; font-size:40px; color:white;">O</div>
+            </div>
+            <h2 class="profile-name"><span id="other-main-name">Other User</span></h2>
+            <p class="profile-stats">22 Linked People • 12 posts</p>
+            <div class="profile-action-btns" style="margin-top:10px;">
+               <button class="add-story-btn" id="other-link-btn" onclick="doLink(this, false)"><i class="fa-solid fa-link"></i> Link</button>
+               <button class="edit-profile-btn" onclick="openChat(document.getElementById('other-main-name').innerText, document.getElementById('other-profile-pic').innerText, document.getElementById('other-profile-pic').classList[1])"><i class="fa-solid fa-message"></i> Message</button>
+            </div>
+        </div>
+
+        <div class="pymk-section">
+            <h4 style="margin-bottom:15px;">Photos by <span id="other-post-title">Other User</span></h4>
+            <div class="post-card" style="margin-bottom:0; box-shadow:none; border:1px solid #e2e8f0;">
+              <p class="post-content">Life is beautiful! Let's cherish every moment here in Namma Oour. ✨</p>
+              <img src="https://images.unsplash.com/photo-1506744626753-dba37c2a987d?auto=format&fit=crop&q=80&w=400&h=300" 
+                   style="width:100%; height:200px; object-fit:cover; border-radius:12px; margin-bottom:15px;" alt="Random User Post">
+              <div class="post-actions">
+                <button onclick="toggleLike(this)"><i class="fa-regular fa-thumbs-up"></i> <span class="like-text">Like</span></button>
+                <button onclick="openCommentModal()"><i class="fa-regular fa-comment"></i> Comment</button>
+              </div>
+            </div>
+        </div>
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+
+    <!-- Edit Profile Screen -->
+    <div id="edit-profile-screen" class="screen">
+      <div class="app-bar border-bottom" style="padding: 40px 15px 15px;">
+        <div class="app-actions">
+           <i class="fa-solid fa-xmark fa-lg" onclick="showScreen('profile-screen')"></i>
+           <h3 style="margin-left: 15px; display: inline; font-size:20px;">Edit Profile</h3>
+        </div>
+        <i class="fa-solid fa-check fa-lg" style="color:var(--primary)" onclick="saveProfile()"></i>
+      </div>
+      <div class="feed-container">
+         <div class="settings-group">
+            <h5 class="settings-title">Name</h5>
+            <input type="text" id="edit-name-input" class="search-input" style="border:none; border-bottom:1px solid #cbd5e1; border-radius:0; background:transparent;">
+         </div>
+         <div class="settings-group">
+            <h5 class="settings-title">Bio</h5>
+            <textarea id="edit-bio-input" class="search-input" placeholder="Add a short bio..." style="border:none; border-bottom:1px solid #cbd5e1; border-radius:0; background:transparent; resize:none; font-family:inherit; font-size:16px; padding:10px 0; min-height:60px;"></textarea>
+         </div>
+      </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settings-screen" class="screen">
+      <div class="app-bar border-bottom" style="padding: 40px 15px 15px;">
+        <div class="app-actions">
+           <i class="fa-solid fa-arrow-left fa-lg" onclick="showScreen('profile-screen')"></i>
+           <h3 style="margin-left: 15px; display: inline; font-size: 20px;">Settings</h3>
+        </div>
+      </div>
+      <div class="feed-container" style="background: white;">
+         <div class="settings-group">
+            <h5 class="settings-title">Who can see your content</h5>
+            <div class="setting-item" onclick="alert('Account Privacy: Editing privacy settings...')"><i class="fa-solid fa-lock"></i> <span>Account privacy</span></div>
+            <div class="setting-item" onclick="alert('Close Friends: Opening close friends list...')"><i class="fa-solid fa-star"></i> <span>Close Friends</span></div>
+            <div class="setting-item" onclick="alert('Blocked: Opening blocked members...')"><i class="fa-solid fa-ban"></i> <span>Blocked</span></div>
+            <div class="setting-item" onclick="alert('Story and location: Editing location tags...')"><i class="fa-solid fa-clock-rotate-left"></i> <span>Story and location</span></div>
+         </div>
+         <div class="settings-group">
+            <h5 class="settings-title">How others can interact with you</h5>
+            <div class="setting-item" onclick="alert('Messages and story replies: Adjusting message limits...')"><i class="fa-regular fa-paper-plane"></i> <span>Messages and story replies</span></div>
+            <div class="setting-item" onclick="alert('Tags and mentions: Updating tag logic...')"><i class="fa-solid fa-at"></i> <span>Tags and mentions</span></div>
+            <div class="setting-item" onclick="alert('Comments: Reviewing blocked words in comments...')"><i class="fa-regular fa-comment"></i> <span>Comments</span></div>
+            <div class="setting-item" onclick="alert('Sharing and reuse: Updating share permissions...')"><i class="fa-solid fa-retweet"></i> <span>Sharing and reuse</span></div>
+            <div class="setting-item" onclick="alert('Restricted accounts: Opening restricted members list...')"><i class="fa-solid fa-user-xmark"></i> <span>Restricted accounts</span></div>
+         </div>
+         <button class="logout-btn" onclick="doLogout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Global Bottom Nav -->
+    <div class="bottom-nav" id="global-bottom-nav">
+      <div class="nav-item active" id="nav-btn-home" onclick="navTo('home-screen')">
+        <i class="fa-solid fa-house"></i><span>Home</span>
+      </div>
+      <div class="nav-item center-post" onclick="openCreatePostModal()">
+        <div class="center-add-btn"><i class="fa-solid fa-plus fa-lg"></i></div>
+      </div>
+      <div class="nav-item" id="nav-btn-messages" onclick="navTo('messages-screen')">
+        <i class="fa-solid fa-message"></i><span>Messages</span>
+      </div>
+    </div>
+
+  </div> <!-- End device frame -->
+
+
+  <!-- ALL MODALS -->
+
+  <!-- Comment Modal -->
+  <div id="comment-modal" class="modal-overlay" style="display:none;" onclick="if(event.target === this) closeCommentModal()">
+      <div class="comment-bottom-sheet">
+         <div class="comment-header">
+            <h4>Comments</h4>
+            <i class="fa-solid fa-xmark" onclick="closeCommentModal()"></i>
+         </div>
+         <div class="comment-list">
+             <div class="comment-item">
+                 <div class="avatar blue-bg" style="width:24px;height:24px;font-size:12px;">P</div>
+                 <div class="comment-content"><b>Priya:</b> Semmaya irukku pa! 😍</div>
+             </div>
+         </div>
+         <div class="comment-input-area">
+            <input type="text" placeholder="Add a comment..." class="search-input" style="flex:1; border-radius:20px; outline:none; padding:10px 15px;">
+            <button class="primary-btn" style="padding: 10px 15px; margin:0 0 0 10px; border-radius:50%;"><i class="fa-solid fa-paper-plane"></i></button>
+         </div>
+      </div>
+  </div>
+
+  <!-- Create Post Modal -->
+  <div id="create-post-modal" class="modal-overlay" style="display:none;" onclick="if(event.target === this) this.style.display='none'">
+     <div class="msg-action-sheet" style="padding-bottom:15px; bottom: 0px; width:100%; border-radius: 24px 24px 0 0;">
+         <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-bottom:1px solid #e2e8f0;">
+             <div style="font-weight:bold; font-size:18px;">Create Post</div>
+             <i class="fa-solid fa-xmark fa-lg" onclick="document.getElementById('create-post-modal').style.display='none'"></i>
+         </div>
+         <div style="padding: 15px;">
+             <textarea class="search-input" style="width:100%; height:120px; border-radius:12px; resize:none; font-size:16px;" placeholder="What's on your mind?"></textarea>
+         </div>
+         <div class="msg-action-list" style="padding-top:0px;">
+            <div onclick="alert('Mockup: Ready to pick Image from internal files!'); document.getElementById('create-post-modal').style.display='none'">
+                <i class="fa-solid fa-image" style="color:#10b981;"></i> Add Image
+            </div>
+            <div onclick="alert('Mockup: Ready to pick Video from internal files!'); document.getElementById('create-post-modal').style.display='none'">
+                <i class="fa-solid fa-video" style="color:#ef4444;"></i> Add Video
+            </div>
+            <div onclick="alert('Post added to your timeline!'); document.getElementById('create-post-modal').style.display='none'" style="color:white; background:var(--primary); text-align:center; display:flex; justify-content:center; border-radius:24px; margin: 15px; font-weight:bold;">
+                Post Now
+            </div>
+         </div>
+     </div>
+  </div>
+
+  <!-- Message Bubble Actions Modal -->
+  <div id="msg-action-modal" class="modal-overlay" style="display:none;" onclick="if(event.target === this) this.style.display='none'">
+     <div class="msg-action-sheet" style="bottom: 0px;">
+         <div class="emoji-bar">
+            <span>❤️</span><span>😂</span><span>😮</span><span>😢</span><span>🙏</span><span>👍</span>
+         </div>
+         <div class="msg-action-list">
+            <div onclick="document.getElementById('msg-action-modal').style.display='none'"><i class="fa-solid fa-reply"></i> Reply</div>
+            <div onclick="document.getElementById('msg-action-modal').style.display='none'"><i class="fa-solid fa-face-smile"></i> Add sticker</div>
+            <div onclick="document.getElementById('msg-action-modal').style.display='none'"><i class="fa-solid fa-share"></i> Forward</div>
+            <div onclick="document.getElementById('msg-action-modal').style.display='none'"><i class="fa-solid fa-thumbtack"></i> Pin</div>
+            <div onclick="document.getElementById('msg-action-modal').style.display='none'"><i class="fa-regular fa-trash-can"></i> Delete for you</div>
+            <div onclick="document.getElementById('msg-action-modal').style.display='none'" style="color:var(--accent);"><i class="fa-solid fa-rotate-left"></i> Unsend</div>
+         </div>
+     </div>
+  </div>
+
+  <!-- Chat List User Actions Modal -->
+  <div id="chat-user-modal" class="modal-overlay" style="display:none;" onclick="if(event.target === this) this.style.display='none'">
+     <div class="msg-action-sheet" style="padding-bottom:15px; bottom: 0px;">
+         <div id="chat-action-name" style="text-align:center; padding:15px; font-weight:bold; border-bottom:1px solid #e2e8f0; font-size:16px;">User Name</div>
+         <div class="msg-action-list" style="padding-top:10px;">
+            <div onclick="handleChatAction('pinToggle')" id="chat-action-pin-text">Unpin</div>
+            <div onclick="handleChatAction('delete')">Delete</div>
+            <div onclick="document.getElementById('chat-user-modal').style.display='none'">Mute messages</div>
+            <div onclick="document.getElementById('chat-user-modal').style.display='none'">Mute calls</div>
+            <div onclick="handleChatAction('block')" style="color:var(--accent);">Block</div>
+         </div>
+     </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
